@@ -6,10 +6,27 @@
 
 
 .section {
-  margin: 10%;
+  margin: 2%;
   border: solid 1px rgba(0, 0, 0, 0.042);
-  padding: 5%;
+  padding: 2%;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.042);
 }
 
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+main {
+  padding: 20px 0;
+}
+
+footer {
+  width: 100%;
+  background-color: #212529;
+}
+
+footer a:hover {
+  color: #fff !important;
+  text-decoration: none;
+}
