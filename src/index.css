@@ -30,3 +30,46 @@ footer a:hover {
   color: #fff !important;
   text-decoration: none;
 }
+
+.hover-card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+}
+
+/* // Dodaj te style do src/styles/About.css */
+.about-page h2 {
+  color: #053885;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-page .card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.about-page .card:hover {
+  transform: translateY(-5px);
+}
+
+
+.contact-page {
+  background-color: #f8f9fa;
+}
+
+.contact-page .card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.contact-page .card:hover {
+  transform: translateY(-5px);
+}
+
+.contact-page iframe {
+  border-radius: 8px;
+}

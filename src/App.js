@@ -5,13 +5,14 @@ import Navigation from './components/Navigation';
 // Import stron
 import Home from './pages/Home';
 import Login from './pages/Login';
+import About from './pages/About';
 import Contact from './pages/Contact';
 // import Action1 from './pages/Action1';
 import Footer from './components/Footer';
 
 
 // Import stylów
-// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';ś
 
 function App() {
   return (
@@ -23,8 +24,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<Contact />} />
-            {/* <Route path="/action1" element={<Action1 />} />
-            <Route path="/action2" element={<Action2 />} />
+            <Route path="/about" element={<About />} />
+            {/* <Route path="/action2" element={<Action2 />} />
             <Route path="/action3" element={<Action3 />} />
             <Route path="/action4" element={<Action4 />} /> */}
           </Routes>

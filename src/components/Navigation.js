@@ -13,13 +13,19 @@ function Navigation() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">Strona Główna</Nav.Link>
-            <Nav.Link as={Link} to="/login">Zaloguj</Nav.Link>
+            <Nav.Link as={Link} to="/">Start</Nav.Link>
+            <Nav.Link as={Link} to="/about">O nas</Nav.Link>
             <Nav.Link as={Link} to="/contact">Kontakt</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/action1">Action</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/action2">Another action</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/action3">Something</NavDropdown.Item>
+            <Nav.Link as={Link} to="/login">Zaloguj</Nav.Link>
+            <Nav.Link as={Link} to="/login">Umów się</Nav.Link>
+            <Nav.Link as={Link} to="/login">Zaloguj</Nav.Link>
+            
+            <NavDropdown title="Pacjent" id="basic-nav-dropdown">
+              <NavDropdown.Item as={Link} to="/action3">Karta Pacjenta</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/action1">Rejestracja online</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/action2">Odwołaj wizytę</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/action3">Zamów receptę</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/action3">Profilaktyka</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item as={Link} to="/action4">Separated link</NavDropdown.Item>
             </NavDropdown>
