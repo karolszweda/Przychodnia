@@ -1,42 +1,69 @@
-// src/pages/Login.js
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Form,
+  Button,
+  Alert,
+} from "react-bootstrap";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    remember: false
+    email: "",
+    password: "",
+    remember: false,
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: name === 'remember' ? checked : value
+      [name]: name === "remember" ? checked : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      // Tutaj będzie logika logowania
-      // await loginUser(formData);
-      console.log('Próba logowania z danymi:', formData);
-      
-      // Symulacja opóźnienia
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Po udanym logowaniu przekierowanie do panelu
-      // history.push('/panel');
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed");
+      }
+
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userName", data.user.name);
+      localStorage.setItem("userEmail", data.user.email);
+      localStorage.setItem("userId", data.user.id);
+
+      window.dispatchEvent(new Event("storage"));
+
+      const returnUrl = location.state?.returnUrl || "/";
+      navigate(returnUrl);
     } catch (err) {
-      setError('Nieprawidłowy email lub hasło. Spróbuj ponownie.');
+      setError("Invalid email or password");
+      console.error("Login error:", err);
     } finally {
       setLoading(false);
     }
@@ -51,11 +78,11 @@ function Login() {
               <h1 className="h2 text-primary">ePrzychodnia</h1>
               <p className="text-muted">Panel Pacjenta</p>
             </div>
-            
+
             <Card className="shadow-sm">
               <Card.Body className="p-4">
                 <h2 className="text-center mb-4">Logowanie</h2>
-                
+
                 {error && (
                   <Alert variant="danger" className="mb-4">
                     {error}
@@ -103,7 +130,7 @@ function Login() {
                     className="w-100 mb-3"
                     disabled={loading}
                   >
-                    {loading ? 'Logowanie...' : 'Zaloguj się'}
+                    {loading ? "Logowanie..." : "Zaloguj się"}
                   </Button>
                 </Form>
 
@@ -118,33 +145,13 @@ function Login() {
             <Card className="mt-4 shadow-sm">
               <Card.Body className="text-center p-4">
                 <p className="mb-0">
-                  Nie masz jeszcze konta?{' '}
+                  Nie masz jeszcze konta?{" "}
                   <Link to="/Register" className="text-decoration-none">
                     Zarejestruj się
                   </Link>
                 </p>
               </Card.Body>
             </Card>
-
-            {/* Dodatkowe informacje */}
-            <div className="text-center mt-4">
-              <p className="text-muted small mb-0">
-                Potrzebujesz pomocy?{' '}
-                <Link to="/contact" className="text-decoration-none">
-                  Skontaktuj się z nami
-                </Link>
-              </p>
-              <p className="text-muted small mt-2">
-                Korzystając z serwisu akceptujesz{' '}
-                <Link to="/terms" className="text-decoration-none">
-                  regulamin
-                </Link>{' '}
-                i{' '}
-                <Link to="/privacy" className="text-decoration-none">
-                  politykę prywatności
-                </Link>
-              </p>
-            </div>
           </Col>
         </Row>
       </Container>

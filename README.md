@@ -24,12 +24,26 @@ Zanim zaczniesz tworzyć frontend w React, musisz zainstalować kilka narzędzi:
 2. **Zainstaluj menedżer pakietów `npm`**:
    Node.js zawiera `npm` (Node Package Manager), który jest używany do instalacji bibliotek i narzędzi.
 
-3. **Uruchom aplikację React**:
+3. **Zainstaluj MySQL**:
+    Aby aplikacja działała poprawnie, należy zainstalować bazę danych MySQL. Możesz pobrać ją z [oficjalnej strony](https://dev.mysql.com/downloads/).
+
+4. **Uruchom aplikację React**:
    Po zainstalowaniu projektu, możesz uruchomić go lokalnie:
    ```bash
    npm start
    ```
    Aplikacja zostanie uruchomiona na [http://localhost:3000](http://localhost:3000).
+
+5. **Uruchom backend aplikacji**:
+   Aby aplikacja działała poprawnie, należy uruchomić backend. Aby to zrobić można użyć komend:
+    ```bash
+    cd backend
+    npm install
+    npm run init-db
+    npm start
+    ```
+
+    Serwer zostanie uruchomiony na porcie 5000.
 
 ### 2. **Struktura projektu React**
 Po utworzeniu projektu `create-react-app` utworzy kilka podstawowych plików i katalogów:

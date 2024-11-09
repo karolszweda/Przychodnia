@@ -1,8 +1,15 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Footer() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(loggedIn);
+  }, []);
+
   return (
     <footer className="bg-light text-dark py-4 mt-auto">
       <Container>
@@ -16,10 +23,28 @@ function Footer() {
           <Col md={4} className="mb-3">
             <h5>Szybkie linki</h5>
             <ul className="list-unstyled">
-              <li><Link to="/" className="text-muted text-decoration-none">Strona główna</Link></li>
-              <li><Link to="/login" className="text-muted text-decoration-none">Zaloguj się</Link></li>
-              <li><Link to="/contact" className="text-muted text-decoration-none">Kontakt</Link></li>
-              <li><Link to="/privacy" className="text-muted text-decoration-none">Polityka prywatności</Link></li>
+              <li>
+                <Link to="/" className="text-muted text-decoration-none">
+                  Strona główna
+                </Link>
+              </li>
+              {!isLoggedIn && (
+                <li>
+                  <Link to="/login" className="text-muted text-decoration-none">
+                    Zaloguj się
+                  </Link>
+                </li>
+              )}
+              <li>
+                <Link to="/contact" className="text-muted text-decoration-none">
+                  Kontakt
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy" className="text-muted text-decoration-none">
+                  Polityka prywatności
+                </Link>
+              </li>
             </ul>
           </Col>
           <Col md={4} className="mb-3">
@@ -34,7 +59,10 @@ function Footer() {
         <hr className="bg-light" />
         <Row>
           <Col className="text-center text-muted">
-            <small>&copy; {new Date().getFullYear()} ePrzychodnia. Wszelkie prawa zastrzeżone.</small>
+            <small>
+              &copy; {new Date().getFullYear()} ePrzychodnia. Wszelkie prawa
+              zastrzeżone.
+            </small>
           </Col>
         </Row>
       </Container>
