@@ -11,7 +11,7 @@ app.use("/pdfs", express.static(path.join(__dirname, "pdfs")));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root-password",
+  password: "mysql",
   database: "clinic",
 });
 

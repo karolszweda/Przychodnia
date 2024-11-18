@@ -9,8 +9,13 @@ function Home() {
       <Carousel className="mb-5">
         <Carousel.Item>
           <div
-            className="bg-primary text-white py-5"
-            style={{ height: "500px" }}
+            className="text-white py-5"
+            style={{
+              height: "500px",
+              backgroundImage: "url(https://images.pexels.com/photos/668298/pexels-photo-668298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+              backgroundSize: "cover", // Wypełnia cały element
+              backgroundPosition: "center" // Wyrównuje obraz do środka
+            }}
           >
             <Container className="h-100 d-flex align-items-center">
               <div>
@@ -32,9 +37,14 @@ function Home() {
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div
-            className="bg-success text-white py-5"
-            style={{ height: "500px" }}
+        <div
+            className="text-white py-5"
+            style={{
+              height: "500px",
+              backgroundImage: "url(https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              backgroundSize: "cover", // Wypełnia cały element
+              backgroundPosition: "center" // Wyrównuje obraz do środka
+            }}
           >
             <Container className="h-100 d-flex align-items-center">
               <div>

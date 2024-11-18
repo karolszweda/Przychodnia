@@ -4,14 +4,21 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 
 function About() {
   return (
-    <div className="about-page">
-      {/* Hero Section */}
-      <div className="bg-primary text-white py-5 mb-5">
-        <Container>
-          <h1 className="display-4 mb-3">ePrzychodnia - Twoje Zdrowie, Nasza Misja</h1>
-          <p className="lead">Nowoczesna opieka medyczna dostosowana do potrzeb współczesnego pacjenta</p>
-        </Container>
-      </div>
+<div className="about-page">
+  {/* Hero Section */}
+  <div className="bg-primary text-white py-5 mb-5" style={{
+    backgroundImage: `url('https://images.pexels.com/photos/8460372/pexels-photo-8460372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`, // Ścieżka do Twojego zdjęcia
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: '550px'  // Zwiększona wysokość sekcji
+  }}>
+    <Container>
+      <h1 className="display-4 mb-3" style={{ color: '#333' }}>ePrzychodnia - Twoje Zdrowie, Nasza Misja</h1>  {/* Ciemny kolor nagłówka */}
+      <p className="lead" style={{ color: '#333' }}>Nowoczesna opieka medyczna dostosowana do potrzeb współczesnego pacjenta</p>  {/* Ciemny kolor tekstu */}
+    </Container>
+  </div>
+
+
 
       {/* Main Content */}
       <Container>
