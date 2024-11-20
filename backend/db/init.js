@@ -4,7 +4,7 @@ async function initDb() {
   const connection = await mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "msql",
+    password: "mysql",
     multipleStatements: true,
   });
 
