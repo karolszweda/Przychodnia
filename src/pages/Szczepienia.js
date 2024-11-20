@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Alert,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Container, Row, Col, Button, Alert, Modal } from "react-bootstrap";
 
 const Szczepienia = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [schedule, setSchedule] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState(null);
-  const [selectedVaccine, setSelectedVaccine] = useState("");
+  const [selectedVaccine] = useState(location.state?.selectedVaccine || "");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -41,7 +34,9 @@ const Szczepienia = () => {
     const fetchSchedule = async () => {
       try {
         const startDate = new Date();
-        startDate.setDate(startDate.getDate() +1+ weekOffset * 7);
+        startDate.setHours(0, 0, 0, 0); // Reset time to start of day
+        startDate.setDate(startDate.getDate() + weekOffset * 7);
+
         const endDate = new Date(startDate);
         endDate.setDate(startDate.getDate() + 6);
 
@@ -58,7 +53,7 @@ const Szczepienia = () => {
         const data = await response.json();
         const formattedSchedule = data.map((slot) => ({
           ...slot,
-          date: new Date(slot.date).toISOString().split("T")[0],
+          date: slot.date.split("T")[0], // Use date string directly without creating new Date
           time: slot.time.slice(0, 5),
         }));
 
@@ -85,11 +80,13 @@ const Szczepienia = () => {
       return;
     }
 
-    if (selectedSlot?.id === slot.id) {
-      setSelectedSlot(null);
-    } else {
-      setSelectedSlot(slot);
-    }
+    setSelectedSlot(slot);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedSlot(null);
   };
 
   const handleBookAppointment = async () => {
@@ -129,6 +126,8 @@ const Szczepienia = () => {
       setError(err.message);
     }
   };
+
+
 
   const formatDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString("pl-PL", {
@@ -248,35 +247,16 @@ const Szczepienia = () => {
         ))}
       </Row>
 
-      {selectedSlot && (
-        <div className="mt-4 text-center">
-          <Alert variant="info">
-            Wybrany termin: {formatDate(selectedSlot.date)} {selectedSlot.time}
-          </Alert>
-          <Button variant="success" onClick={() => setShowModal(true)}>
-            Zarezerwuj termin
-          </Button>
-        </div>
-      )}
-
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Potwierdź szczepienie</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Wybierz rodzaj szczepienia:</p>
-          <Form.Select
-            value={selectedVaccine}
-            onChange={(e) => setSelectedVaccine(e.target.value)}
-            className="mb-3"
-          >
-            <option value="">Wybierz szczepienie</option>
-            {Object.entries(VACCINATION_TYPES).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </Form.Select>
+          <p>Czy na pewno chcesz zarezerwować szczepienie?</p>
+          <p>
+            <strong>Rodzaj szczepienia:</strong>{" "}
+            {VACCINATION_TYPES[selectedVaccine]}
+          </p>
           <p>
             <strong>Data:</strong> {formatDate(selectedSlot?.date)}{" "}
             {selectedSlot?.time}
@@ -286,11 +266,7 @@ const Szczepienia = () => {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Anuluj
           </Button>
-          <Button
-            variant="primary"
-            onClick={handleBookAppointment}
-            disabled={!selectedVaccine}
-          >
+          <Button variant="primary" onClick={handleBookAppointment}>
             Potwierdź
           </Button>
         </Modal.Footer>

@@ -11,7 +11,7 @@ app.use("/pdfs", express.static(path.join(__dirname, "pdfs")));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "mysql",
+  password: "myqsl",
   database: "clinic",
 });
 
@@ -137,7 +137,7 @@ app.get("/api/appointments/:userId", async (req, res) => {
       `SELECT 
           'doctor' as type,
           ds.id,
-          ds.date,
+          DATE_FORMAT(ds.date, '%Y-%m-%d') as date, -- Format the date
           ds.time,
           d.name as doctor_name,
           d.surname as doctor_surname,
@@ -155,7 +155,7 @@ app.get("/api/appointments/:userId", async (req, res) => {
         SELECT
           'vaccination' as type,
           vs.id,
-          vs.date,
+          DATE_FORMAT(vs.date, '%Y-%m-%d') as date, -- Format the date here as well
           vs.time,
           'Vaccination' as doctor_name,
           vs.vaccination_type as doctor_surname,
@@ -168,7 +168,7 @@ app.get("/api/appointments/:userId", async (req, res) => {
         WHERE vs.patient_email = (
           SELECT email FROM users WHERE id = ?
         )
-        ORDER BY date DESC, time DESC`,
+        ORDER BY date, time`,
       [req.params.userId, req.params.userId]
     );
 
@@ -301,7 +301,7 @@ app.get("/api/vaccinations/schedule", async (req, res) => {
     const [rows] = await db.promise().query(
       `SELECT 
           id,
-          date,
+          DATE_FORMAT(date, '%Y-%m-%d') as date, -- Format the date here
           TIME_FORMAT(time, '%H:%i') as time,
           is_available,
           patient_name,

@@ -105,6 +105,7 @@ const DoctorSchedule = () => {
       setSelectedSlot(null);
     } else {
       setSelectedSlot(slot);
+      setShowModal(true);
     }
   };
 
@@ -162,12 +163,9 @@ const DoctorSchedule = () => {
     });
   };
 
-  const handleConfirmBooking = () => {
-    setShowModal(true);
-  };
-
   const handleCloseModal = () => {
     setShowModal(false);
+    setSelectedSlot(null);
   };
 
   // define which hours are shown in the schedule
@@ -304,16 +302,6 @@ return (
       ))}
     </Row>
 
-    {selectedSlot && (
-      <div className="mt-4 text-center">
-        <Alert variant="info">
-          Selected time: {formatDate(selectedSlot.date)} {selectedSlot.time}
-        </Alert>
-        <Button variant="success" onClick={handleConfirmBooking}>
-          Book Appointment
-        </Button>
-      </div>
-    )}
 
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>

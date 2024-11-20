@@ -1,9 +1,23 @@
-import React from "react";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const TypRejestracji = () => {
   const navigate = useNavigate();
+  const [showVaccineModal, setShowVaccineModal] = useState(false);
+  const VACCINATION_TYPES = {
+    COVID: "COVID-19",
+    FLU: "Grypa sezonowa",
+    PNEUMO: "Pneumokoki",
+    TETANUS: "Tężec",
+  };
+
+  const handleVaccineSelection = (vaccineType) => {
+    setShowVaccineModal(false);
+    navigate(`/szczepienia`, {
+      state: { selectedVaccine: vaccineType },
+    });
+  };
 
   return (
     <Container className="py-5">
@@ -64,7 +78,7 @@ const TypRejestracji = () => {
               <Button
                 variant="primary"
                 className="mt-auto"
-                onClick={() => navigate("/szczepienia")}
+                onClick={() => setShowVaccineModal(true)}
               >
                 Umów szczepienie
               </Button>
@@ -72,8 +86,27 @@ const TypRejestracji = () => {
           </Card>
         </Col>
       </Row>
+      <Modal show={showVaccineModal} onHide={() => setShowVaccineModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Wybierz rodzaj szczepienia</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row className="g-3">
+            {Object.entries(VACCINATION_TYPES).map(([key, value]) => (
+              <Col md={6} key={key}>
+                <Button
+                  variant="outline-primary"
+                  className="w-100"
+                  onClick={() => handleVaccineSelection(key)}
+                >
+                  {value}
+                </Button>
+              </Col>
+            ))}
+          </Row>
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 };
-
 export default TypRejestracji;

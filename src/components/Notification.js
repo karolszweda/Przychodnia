@@ -11,9 +11,10 @@ const Notification = () => {
   useEffect(() => {
     const checkAppointments = async () => {
       const userId = localStorage.getItem("userId");
+      const allowedPaths = ["/", "/about", "/contact"];
 
       // No notification in terminarz page
-      if (location.pathname === "/terminarz-pacjenta") {
+      if (!allowedPaths.includes(location.pathname)) {
         setHasAppointments(false);
         setShow(false);
         setLoading(false);

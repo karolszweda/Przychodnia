@@ -70,9 +70,6 @@ function Navigation({ onFontSizeIncrease, onFontSizeReset, onToggleDarkMode, dar
               <NavDropdown title={userName} id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/karta-pacjenta">Karta Pacjenta</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/terminarz-pacjenta">Umówione wizyty</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/szczepienia">Szczepienia</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/action3">Zamów receptę</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/action3">Profilaktyka</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogout}>Wyloguj</NavDropdown.Item>
               </NavDropdown>
@@ -82,7 +79,10 @@ function Navigation({ onFontSizeIncrease, onFontSizeReset, onToggleDarkMode, dar
           </Nav>
 
           {/* Przycisk do zmiany rozmiaru czcionki i trybu ciemnego */}
-          <div style={{ marginLeft: 'auto', padding: '0 10px' }}>
+          <div style={{ 
+            marginLeft: 'auto',
+            padding: '0 10px',
+            display: 'flex' }}>
             <FontSizeButton 
               onFontSizeChange={onFontSizeIncrease} 
               label="A+" 
