@@ -126,10 +126,10 @@ function Home() {
                   <h5>Nowy specjalista</h5>
                   <p className="text-muted small">15.10.2024</p>
                   <p>
-                    Z przyjemnością witamy w naszym zespole dr Annę Kowalską,
-                    specjalistę endokrynologii.
+                    Z przyjemnością witamy w naszym zespole dr Annę Nowak,
+                    specjalistę neurologii.
                   </p>
-                  <Button variant="link" className="p-0">
+                  <Button as={link} to="/nowy-specjalista" variant="link" className="p-0">
                     Czytaj więcej
                   </Button>
                 </Card.Body>
@@ -144,7 +144,7 @@ function Home() {
                     Rozpoczynamy sezon szczepień przeciw grypie. Zapraszamy do
                     rejestracji.
                   </p>
-                  <Button variant="link" className="p-0">
+                  <Button as={link} to="/szczepienia-info" variant="link" className="p-0">
                     Czytaj więcej
                   </Button>
                 </Card.Body>
@@ -159,7 +159,7 @@ function Home() {
                     Od października wydłużamy godziny przyjęć w dni powszednie
                     do 20:00.
                   </p>
-                  <Button variant="link" className="p-0">
+                  <Button as={link} to="/nowe-godziny" variant="link" className="p-0">
                     Czytaj więcej
                   </Button>
                 </Card.Body>

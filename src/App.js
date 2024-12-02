@@ -5,6 +5,7 @@ import Navigation from './components/Navigation';
 import Notification from "./components/Notification";
 import Footer from './components/Footer'; // Import stopki
 
+
 // Import stron
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -17,6 +18,9 @@ import Register from './pages/Register';
 import TerminarzPacjenta from './pages/TerminarzPacjenta';
 import TypRejestracji from './pages/TypRejestracji';
 import Szczepienia from './pages/Szczepienia';
+import NowySpecjalista from "./pages/NowySpecjalista";
+import SzczepieniaInfo from "./pages/SzczepieniaInfo";
+import NoweGodziny from "./pages/NoweGodziny";
 
 function App() {
   const [fontSize, setFontSize] = useState(20); // Ustawienie domyślnego rozmiaru czcionki
@@ -67,6 +71,9 @@ function App() {
             <Route path="/karta-pacjenta" element={<KartaPacjenta />} />
             <Route path="/register" element={<Register />} />
             <Route path="/terminarz-pacjenta" element={<TerminarzPacjenta />} />
+            <Route path="/nowy-specjalista" element={<NowySpecjalista />} />
+            <Route path="/szczepienia-info" element={<SzczepieniaInfo />} />
+            <Route path="/nowe-godziny" element={<NoweGodziny />} />
           </Routes>
         </main>
         <Footer darkMode={darkMode} /> {/* Przekazujemy darkMode do Footer */}

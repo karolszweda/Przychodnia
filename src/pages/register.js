@@ -1,7 +1,6 @@
-// src/pages/Register.js
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -24,6 +23,7 @@ function Register() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const navigate = useNavigate();
 
   const validateForm = () => {
     const newErrors = {};
@@ -97,25 +97,57 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitError('');
-
+    setSubmitError("");
     if (!validateForm()) {
       return;
     }
-
     setLoading(true);
+
     try {
-      // Tutaj będzie logika rejestracji
-      // await registerUser(formData);
-      console.log('Próba rejestracji z danymi:', formData);
-      
-      // Symulacja opóźnienia
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Po udanej rejestracji przekierowanie do potwierdzenia
-      // history.push('/register-success');
+      const response = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          pesel: formData.pesel,
+          birthDate: formData.birthDate,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          postalCode: formData.postalCode,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Registration failed");
+      }
+
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem(
+        "userName",
+        `${formData.firstName} ${formData.lastName}`
+      );
+      localStorage.setItem("userEmail", formData.email);
+      localStorage.setItem("userId", data.userId);
+
+      navigate("/karta-pacjenta", {
+        state: {
+          showToast: true,
+          message: "Rejestracja zakończona pomyślnie",
+        },
+      });
     } catch (err) {
-      setSubmitError('Wystąpił błąd podczas rejestracji. Spróbuj ponownie później.');
+      setSubmitError(
+        err.message ||
+          "Wystąpił błąd podczas rejestracji. Spróbuj ponownie później."
+      );
     } finally {
       setLoading(false);
     }
