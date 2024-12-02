@@ -1,86 +1,94 @@
 // src/pages/Register.js
-import React, { useState } from 'react';
-import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Form,
+  Button,
+  Alert,
+} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    pesel: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
-    birthDate: '',
-    address: '',
-    city: '',
-    postalCode: '',
+    firstName: "",
+    lastName: "",
+    pesel: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    birthDate: "",
+    address: "",
+    city: "",
+    postalCode: "",
     acceptTerms: false,
     acceptPrivacy: false,
-    acceptMarketing: false
+    acceptMarketing: false,
   });
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const [submitError, setSubmitError] = useState("");
 
   const validateForm = () => {
     const newErrors = {};
 
     // Imię
     if (!formData.firstName.trim()) {
-      newErrors.firstName = 'Pole wymagane';
+      newErrors.firstName = "Pole wymagane";
     }
 
     // Nazwisko
     if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Pole wymagane';
+      newErrors.lastName = "Pole wymagane";
     }
 
     // PESEL
     if (!/^\d{11}$/.test(formData.pesel)) {
-      newErrors.pesel = 'PESEL musi składać się z 11 cyfr';
+      newErrors.pesel = "PESEL musi składać się z 11 cyfr";
     }
 
     // Email
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Nieprawidłowy format email';
+      newErrors.email = "Nieprawidłowy format email";
     }
 
     // Telefon
-    if (!/^\d{9}$/.test(formData.phone.replace(/\s/g, ''))) {
-      newErrors.phone = 'Nieprawidłowy numer telefonu';
+    if (!/^\d{9}$/.test(formData.phone.replace(/\s/g, ""))) {
+      newErrors.phone = "Nieprawidłowy numer telefonu";
     }
 
     // Hasło
     if (formData.password.length < 8) {
-      newErrors.password = 'Hasło musi mieć minimum 8 znaków';
+      newErrors.password = "Hasło musi mieć minimum 8 znaków";
     }
 
     // Potwierdzenie hasła
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Hasła nie są identyczne';
+      newErrors.confirmPassword = "Hasła nie są identyczne";
     }
 
     // Data urodzenia
     if (!formData.birthDate) {
-      newErrors.birthDate = 'Pole wymagane';
+      newErrors.birthDate = "Pole wymagane";
     }
 
     // Kod pocztowy
     if (!/^\d{2}-\d{3}$/.test(formData.postalCode)) {
-      newErrors.postalCode = 'Nieprawidłowy format kodu pocztowego';
+      newErrors.postalCode = "Nieprawidłowy format kodu pocztowego";
     }
 
     // Akceptacja regulaminu
     if (!formData.acceptTerms) {
-      newErrors.acceptTerms = 'Wymagana akceptacja regulaminu';
+      newErrors.acceptTerms = "Wymagana akceptacja regulaminu";
     }
 
     // Akceptacja polityki prywatności
     if (!formData.acceptPrivacy) {
-      newErrors.acceptPrivacy = 'Wymagana akceptacja polityki prywatności';
+      newErrors.acceptPrivacy = "Wymagana akceptacja polityki prywatności";
     }
 
     setErrors(newErrors);
@@ -89,15 +97,15 @@ function Register() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitError('');
+    setSubmitError("");
 
     if (!validateForm()) {
       return;
@@ -107,15 +115,17 @@ function Register() {
     try {
       // Tutaj będzie logika rejestracji
       // await registerUser(formData);
-      console.log('Próba rejestracji z danymi:', formData);
-      
+      console.log("Próba rejestracji z danymi:", formData);
+
       // Symulacja opóźnienia
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       // Po udanej rejestracji przekierowanie do potwierdzenia
       // history.push('/register-success');
     } catch (err) {
-      setSubmitError('Wystąpił błąd podczas rejestracji. Spróbuj ponownie później.');
+      setSubmitError(
+        "Wystąpił błąd podczas rejestracji. Spróbuj ponownie później."
+      );
     } finally {
       setLoading(false);
     }
@@ -341,8 +351,11 @@ function Register() {
                           onChange={handleChange}
                           label={
                             <span>
-                              Akceptuję{' '}
-                              <Link to="/terms" target="_blank">regulamin</Link>*
+                              Akceptuję{" "}
+                              <Link to="/terms" target="_blank">
+                                regulamin
+                              </Link>
+                              *
                             </span>
                           }
                           isInvalid={!!errors.acceptTerms}
@@ -357,8 +370,11 @@ function Register() {
                           onChange={handleChange}
                           label={
                             <span>
-                              Akceptuję{' '}
-                              <Link to="/privacy" target="_blank">politykę prywatności</Link>*
+                              Akceptuję{" "}
+                              <Link to="/privacy" target="_blank">
+                                politykę prywatności
+                              </Link>
+                              *
                             </span>
                           }
                           isInvalid={!!errors.acceptPrivacy}
@@ -384,7 +400,7 @@ function Register() {
                         className="w-100 mb-3"
                         disabled={loading}
                       >
-                        {loading ? 'Przetwarzanie...' : 'Zarejestruj się'}
+                        {loading ? "Przetwarzanie..." : "Zarejestruj się"}
                       </Button>
                       <p className="text-muted text-center small">
                         * Pola wymagane
@@ -398,7 +414,7 @@ function Register() {
             <Card className="mt-4 shadow-sm">
               <Card.Body className="text-center p-4">
                 <p className="mb-0">
-                  Masz już konto?{' '}
+                  Masz już konto?{" "}
                   <Link to="/login" className="text-decoration-none">
                     Zaloguj się
                   </Link>
@@ -409,7 +425,7 @@ function Register() {
             {/* Pomoc */}
             <div className="text-center mt-4">
               <p className="text-muted small mb-0">
-                Potrzebujesz pomocy?{' '}
+                Potrzebujesz pomocy?{" "}
                 <Link to="/contact" className="text-decoration-none">
                   Skontaktuj się z nami
                 </Link>

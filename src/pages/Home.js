@@ -1,5 +1,5 @@
-// src/pages/Home.js
 import React from 'react';
+import { Link as link } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Carousel } from 'react-bootstrap';
 
 function Home() {
@@ -8,23 +8,53 @@ function Home() {
       {/* Hero Carousel */}
       <Carousel className="mb-5">
         <Carousel.Item>
-          <div className="bg-primary text-white py-5" style={{ height: '500px' }}>
+          <div
+            className="text-white py-5"
+            style={{
+              height: "500px",
+              backgroundImage: "url(https://images.pexels.com/photos/668298/pexels-photo-668298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+              backgroundSize: "cover", // Wypełnia cały element
+              backgroundPosition: "center" // Wyrównuje obraz do środka
+            }}
+          >
             <Container className="h-100 d-flex align-items-center">
               <div>
                 <h1 className="display-4">Witaj w ePrzychodni</h1>
-                <p className="lead">Twoje zdrowie w zasięgu jednego kliknięcia</p>
-                <Button variant="light" size="lg" className="mt-3">Umów wizytę</Button>
+                <p className="lead">
+                  Twoje zdrowie w zasięgu jednego kliknięcia
+                </p>
+                <Button
+                  as={link}
+                  to="/typ-rejestracji"
+                  variant="light"
+                  size="lg"
+                  className="mt-3"
+                >
+                  Umów wizytę
+                </Button>
               </div>
             </Container>
           </div>
         </Carousel.Item>
         <Carousel.Item>
-          <div className="bg-success text-white py-5" style={{ height: '500px' }}>
+        <div
+            className="text-white py-5"
+            style={{
+              height: "500px",
+              backgroundImage: "url(https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              backgroundSize: "cover", // Wypełnia cały element
+              backgroundPosition: "center" // Wyrównuje obraz do środka
+            }}
+          >
             <Container className="h-100 d-flex align-items-center">
               <div>
                 <h1 className="display-4">Teleporady 24/7</h1>
-                <p className="lead">Konsultacje online z naszymi specjalistami</p>
-                <Button variant="light" size="lg" className="mt-3">Sprawdź terminy</Button>
+                <p className="lead">
+                  Konsultacje online z naszymi specjalistami
+                </p>
+                <Button variant="light" size="lg" className="mt-3">
+                  Sprawdź terminy
+                </Button>
               </div>
             </Container>
           </div>
@@ -39,8 +69,16 @@ function Home() {
               <Card.Body>
                 <i className="fas fa-calendar-plus mb-3 h2 text-primary"></i>
                 <h4 className="h5">Umów wizytę</h4>
-                <p className="small">Zarezerwuj termin wizyty stacjonarnej lub online</p>
-                <Button variant="outline-primary">Rezerwuj</Button>
+                <p className="small">
+                  Zarezerwuj termin wizyty stacjonarnej lub online
+                </p>
+                <Button
+                  as={link}
+                  to="/typ-rejestracji"
+                  variant="outline-primary"
+                >
+                  Rezerwuj
+                </Button>
               </Card.Body>
             </Card>
           </Col>
@@ -87,8 +125,13 @@ function Home() {
                 <Card.Body>
                   <h5>Nowy specjalista</h5>
                   <p className="text-muted small">15.10.2024</p>
-                  <p>Z przyjemnością witamy w naszym zespole dr Annę Kowalską, specjalistę endokrynologii.</p>
-                  <Button variant="link" className="p-0">Czytaj więcej</Button>
+                  <p>
+                    Z przyjemnością witamy w naszym zespole dr Annę Nowak,
+                    specjalistę neurologii.
+                  </p>
+                  <Button as={link} to="/nowy-specjalista" variant="link" className="p-0">
+                    Czytaj więcej
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -97,8 +140,13 @@ function Home() {
                 <Card.Body>
                   <h5>Szczepienia przeciw grypie</h5>
                   <p className="text-muted small">10.10.2024</p>
-                  <p>Rozpoczynamy sezon szczepień przeciw grypie. Zapraszamy do rejestracji.</p>
-                  <Button variant="link" className="p-0">Czytaj więcej</Button>
+                  <p>
+                    Rozpoczynamy sezon szczepień przeciw grypie. Zapraszamy do
+                    rejestracji.
+                  </p>
+                  <Button as={link} to="/szczepienia-info" variant="link" className="p-0">
+                    Czytaj więcej
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -107,8 +155,13 @@ function Home() {
                 <Card.Body>
                   <h5>Nowe godziny otwarcia</h5>
                   <p className="text-muted small">05.10.2024</p>
-                  <p>Od października wydłużamy godziny przyjęć w dni powszednie do 20:00.</p>
-                  <Button variant="link" className="p-0">Czytaj więcej</Button>
+                  <p>
+                    Od października wydłużamy godziny przyjęć w dni powszednie
+                    do 20:00.
+                  </p>
+                  <Button as={link} to="/nowe-godziny" variant="link" className="p-0">
+                    Czytaj więcej
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -125,7 +178,9 @@ function Home() {
               <Card.Body className="text-center">
                 <i className="fas fa-heart mb-3 h2 text-danger"></i>
                 <h5>Kardiologia</h5>
-                <p className="small">Kompleksowa diagnostyka i leczenie chorób serca</p>
+                <p className="small">
+                  Kompleksowa diagnostyka i leczenie chorób serca
+                </p>
               </Card.Body>
             </Card>
           </Col>
@@ -134,7 +189,9 @@ function Home() {
               <Card.Body className="text-center">
                 <i className="fas fa-child mb-3 h2 text-primary"></i>
                 <h5>Pediatria</h5>
-                <p className="small">Opieka nad dziećmi od pierwszych dni życia</p>
+                <p className="small">
+                  Opieka nad dziećmi od pierwszych dni życia
+                </p>
               </Card.Body>
             </Card>
           </Col>
@@ -143,7 +200,9 @@ function Home() {
               <Card.Body className="text-center">
                 <i className="fas fa-brain mb-3 h2 text-info"></i>
                 <h5>Neurologia</h5>
-                <p className="small">Diagnostyka i leczenie chorób układu nerwowego</p>
+                <p className="small">
+                  Diagnostyka i leczenie chorób układu nerwowego
+                </p>
               </Card.Body>
             </Card>
           </Col>
@@ -189,8 +248,12 @@ function Home() {
       {/* CTA */}
       <Container className="text-center mb-5">
         <h2 className="mb-4">Zadbaj o swoje zdrowie już dziś</h2>
-        <p className="lead mb-4">Nie zwlekaj - umów się na wizytę i zacznij dbać o swoje zdrowie</p>
-        <Button variant="primary" size="lg">Umów wizytę online</Button>
+        <p className="lead mb-4">
+          Nie zwlekaj - umów się na wizytę i zacznij dbać o swoje zdrowie
+        </p>
+        <Button as={link} to="/typ-rejestracji" variant="primary" size="lg">
+          Umów wizytę online
+        </Button>
       </Container>
     </div>
   );
