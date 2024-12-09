@@ -56,6 +56,43 @@ const AppointmentTable = ({ appointments, onCancelClick, type }) => (
   </Table>
 );
 
+const CompletedAppointmentsTable = ({ appointments }) => (
+  <Table responsive>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Godzina</th>
+        <th>Rodzaj wizyty</th>
+        <th>Lekarz/Szczepienie</th>
+        <th>Specjalizacja/Typ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {appointments.map((appointment) => (
+        <tr key={appointment.id}>
+          <td>{new Date(appointment.date).toLocaleDateString("pl-PL")}</td>
+          <td>{appointment.time}</td>
+          <td>
+            {appointment.type === "vaccination"
+              ? "Szczepienie"
+              : "Wizyta lekarska"}
+          </td>
+          <td>
+            {appointment.type === "vaccination"
+              ? appointment.doctor_surname // Vaccination type :P
+              : `${appointment.doctor_name} ${appointment.doctor_surname}`}
+          </td>
+          <td>
+            {appointment.type === "vaccination"
+              ? "Szczepienie"
+              : appointment.specialization}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </Table>
+);
+
 
 
 const TerminarzPacjenta = () => {
@@ -68,14 +105,21 @@ const TerminarzPacjenta = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-  const doctorAppointments = appointments.filter(
+  const [showCompleted, setShowCompleted] = useState(false);
+
+  const activeAppointments = appointments.filter(
+    (app) => app.status !== "completed"
+  );
+  const completedAppointments = appointments.filter(
+    (app) => app.status === "completed"
+  );
+
+  const activeDoctor = activeAppointments.filter(
     (app) => app.type !== "vaccination"
   );
-  const vaccinationAppointments = appointments.filter(
+  const activeVaccination = activeAppointments.filter(
     (app) => app.type === "vaccination"
   );
-
-
 
   useEffect(() => {
     if (location.state?.showToast) {
@@ -176,9 +220,9 @@ const TerminarzPacjenta = () => {
       <h2 className="text-center mb-4">Terminarz Pacjenta</h2>
 
       <h3 className="mt-4 mb-3">Wizyty lekarskie</h3>
-      {doctorAppointments.length > 0 ? (
+      {activeDoctor.length > 0 ? (
         <AppointmentTable
-          appointments={doctorAppointments}
+          appointments={activeDoctor}
           onCancelClick={handleCancelClick}
           type="doctor"
         />
@@ -189,15 +233,36 @@ const TerminarzPacjenta = () => {
       )}
 
       <h3 className="mt-5 mb-3">Szczepienia</h3>
-      {vaccinationAppointments.length > 0 ? (
+      {activeVaccination.length > 0 ? (
         <AppointmentTable
-          appointments={vaccinationAppointments}
+          appointments={activeVaccination}
           onCancelClick={handleCancelClick}
           type="vaccination"
         />
       ) : (
         <p className="text-center text-muted">Brak zaplanowanych szczepień</p>
       )}
+
+      <div className="mt-5">
+        <div className="d-flex align-items-center mb-3">
+          <h3 className="mb-0">Odbyte spotkania</h3>
+          <Button
+            variant="link"
+            onClick={() => setShowCompleted(!showCompleted)}
+            className="ms-2"
+          >
+            {showCompleted ? "▼" : "▶"}
+          </Button>
+        </div>
+
+        {completedAppointments.length > 0 ? (
+          <div className={`collapse ${showCompleted ? "show" : ""}`}>
+            <CompletedAppointmentsTable appointments={completedAppointments} />
+          </div>
+        ) : (
+          <p className="text-center text-muted">Brak odbytych wizyt</p>
+        )}
+      </div>
 
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>

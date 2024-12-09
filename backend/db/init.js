@@ -4,7 +4,7 @@ async function initDb() {
   const connection = await mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "password",
+    password: "root-password",
     multipleStatements: true,
   });
 
@@ -117,9 +117,9 @@ async function initDb() {
     await connection.query("TRUNCATE TABLE doctor_schedules");
 
     // Create schedules for each doctor
-    const next28Days = [...Array(28)].map((_, i) => {
+    const next28Days = [...Array(35)].map((_, i) => {
       const date = new Date();
-      date.setDate(date.getDate() + i);
+      date.setDate(date.getDate() + i - 7);
       return date.toISOString().split("T")[0];
     });
 
@@ -154,14 +154,14 @@ async function initDb() {
   )
 `);
 
-  // Vaccination table
+    // Vaccination table
     await connection.query("TRUNCATE TABLE vaccination_schedules");
 
     for (const dateStr of next28Days) {
       const date = new Date(dateStr);
       const dayOfWeek = date.getDay();
-      const startHour = dayOfWeek === 0 || dayOfWeek === 6 ? 10 : 8; 
-      const endHour = dayOfWeek === 0 || dayOfWeek === 6 ? 14 : 17; 
+      const startHour = dayOfWeek === 0 || dayOfWeek === 6 ? 10 : 8;
+      const endHour = dayOfWeek === 0 || dayOfWeek === 6 ? 14 : 17;
 
       for (let hour = startHour; hour < endHour; hour++) {
         await connection.query(
@@ -172,12 +172,57 @@ async function initDb() {
       }
     }
 
+    // Add example appointments for Test User to diplay historic appointments
+    await connection.query(`
+  -- Past doctor appointments
+  UPDATE doctor_schedules 
+  SET is_available = false,
+      patient_name = 'Test User',
+      patient_email = 'test@test.com'
+  WHERE date < CURDATE() 
+  ORDER BY RAND()
+  LIMIT 2;
+
+  -- Future doctor appointments
+  UPDATE doctor_schedules 
+  SET is_available = false,
+      patient_name = 'Test User',
+      patient_email = 'test@test.com'
+  WHERE date > CURDATE() 
+  ORDER BY RAND()
+  LIMIT 2;
+
+  -- Past vaccination
+  UPDATE vaccination_schedules 
+  SET is_available = false,
+      patient_name = 'Test User',
+      patient_email = 'test@test.com',
+      vaccination_type = CASE 
+        WHEN RAND() < 0.5 THEN 'FLU'
+        ELSE 'COVID'
+      END
+  WHERE date < CURDATE()
+  ORDER BY RAND()
+  LIMIT 1;
+
+  -- Future vaccination
+  UPDATE vaccination_schedules 
+  SET is_available = false,
+      patient_name = 'Test User',
+      patient_email = 'test@test.com',
+      vaccination_type = 'COVID'
+  WHERE date > CURDATE()
+  ORDER BY RAND()
+  LIMIT 1;
+`);
+
     console.log("Database initialized successfully");
   } catch (err) {
     console.error("Error initializing database:", err);
   } finally {
     await connection.end();
   }
+
 }
 
 initDb();
