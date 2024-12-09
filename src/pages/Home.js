@@ -7,58 +7,85 @@ function Home() {
     <div className="home-page">
       {/* Hero Carousel */}
       <Carousel className="mb-5">
-        <Carousel.Item>
-          <div
-            className="text-white py-5"
-            style={{
-              height: "500px",
-              backgroundImage: "url(https://images.pexels.com/photos/668298/pexels-photo-668298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
-              backgroundSize: "cover", // Wypełnia cały element
-              backgroundPosition: "center" // Wyrównuje obraz do środka
-            }}
-          >
-            <Container className="h-100 d-flex align-items-center">
-              <div>
-                <h1 className="display-4">Witaj w ePrzychodni</h1>
-                <p className="lead">
-                  Twoje zdrowie w zasięgu jednego kliknięcia
-                </p>
-                <Button
-                  as={link}
-                  to="/typ-rejestracji"
-                  variant="light"
-                  size="lg"
-                  className="mt-3"
-                >
-                  Umów wizytę
-                </Button>
-              </div>
-            </Container>
-          </div>
-        </Carousel.Item>
-        <Carousel.Item>
+      <Carousel.Item>
         <div
-            className="text-white py-5"
-            style={{
-              height: "500px",
-              backgroundImage: "url(https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-              backgroundSize: "cover", // Wypełnia cały element
-              backgroundPosition: "center" // Wyrównuje obraz do środka
-            }}
-          >
-            <Container className="h-100 d-flex align-items-center">
-              <div>
-                <h1 className="display-4">Teleporady 24/7</h1>
-                <p className="lead">
-                  Konsultacje online z naszymi specjalistami
-                </p>
-                <Button variant="light" size="lg" className="mt-3">
-                  Sprawdź terminy
-                </Button>
-              </div>
-            </Container>
-          </div>
-        </Carousel.Item>
+          className="text-white py-5"
+          style={{
+            height: "500px",
+            backgroundImage: "url(https://images.pexels.com/photos/668298/pexels-photo-668298.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            position: "relative",
+          }}
+        >
+          <Container className="h-100 d-flex align-items-center">
+            <div
+              style={{
+                background: "rgba( 	5 ,	56 	,133, 0.3)", // Półprzezroczyste tło
+                backdropFilter: "blur(10px)", // Efekt rozmycia
+                borderRadius: "15px", // Zaokrąglone rogi
+                padding: "40px",
+                textAlign: "center",
+                color: "white",
+                maxWidth: "600px", // Opcjonalne ograniczenie szerokości
+              }}
+            >
+              <h1 className="display-4 fw-bold">Witaj w ePrzychodni</h1>
+              <p className="lead">
+                Twoje zdrowie w zasięgu jednego kliknięcia
+              </p>
+              <Button
+                as={link}
+                to="/typ-rejestracji"
+                variant="light"
+                size="lg"
+                className="mt-3"
+              >
+                Umów wizytę
+              </Button>
+            </div>
+          </Container>
+        </div>
+      </Carousel.Item>
+      <Carousel.Item>
+        <div
+          className="text-white py-5"
+          style={{
+            height: "500px",
+            backgroundImage: "url(https://images.pexels.com/photos/668300/pexels-photo-668300.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            position: "relative",
+          }}
+        >
+          <Container className="h-100 d-flex align-items-center">
+            <div
+              style={{
+                background: "rgba( 	5 ,	56 	,133, 0.3)", // Półprzezroczyste tło
+                backdropFilter: "blur(10px)", // Efekt rozmycia
+                borderRadius: "15px", // Zaokrąglone rogi
+                padding: "40px",
+                textAlign: "center",
+                color: "white",
+                maxWidth: "600px", // Opcjonalne ograniczenie szerokości
+              }}
+            >
+              <h1 className="display-4 fw-bold">Teleporady 24/7</h1>
+              <p className="lead">
+                Konsultacje online z naszymi specjalistami
+              </p>
+              <Button                 as={link}
+                to="/typ-rejestracji"
+                variant="light"
+                size="lg"
+                className="mt-3">
+                Sprawdź terminy
+              </Button>
+            </div>
+          </Container>
+        </div>
+      </Carousel.Item>
+
       </Carousel>
 
       {/* Szybki dostęp */}

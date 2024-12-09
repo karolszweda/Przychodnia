@@ -7,31 +7,48 @@ function Contact() {
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     event.preventDefault();
-    
+
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      // Tutaj dodaj logikę wysyłania formularza
       console.log('Formularz wysłany');
     }
 
     setValidated(true);
   };
+
   return (
-<div className="contact-page">
-  {/* Hero Section */}
-  <div className="bg-primary text-dark py-5 mb-5" style={{
-    backgroundImage: `url('https://images.pexels.com/photos/7108318/pexels-photo-7108318.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    height: '400px'  // Zwiększenie wysokości kontenera
-  }}>
-    <Container>
-      <h1 className="display-4 mb-3" style={{ color: '#333' }}>Kontakt</h1>  {/* Zmieniony kolor na ciemny czarny */}
-      <p className="lead" style={{ color: '#333' }}>Jesteśmy tu, aby Ci pomóc. Skontaktuj się z nami w najwygodniejszy dla Ciebie sposób.</p>  {/* Zmieniony kolor na ciemny czarny */}
-    </Container>
-  </div>
-   
+    <div className="contact-page">
+      {/* Hero Section */}
+      <div
+        className="bg-primary text-dark py-5 mb-5"
+        style={{
+          backgroundImage: `url('https://images.pexels.com/photos/7108318/pexels-photo-7108318.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          height: '250px',
+          position: 'relative',
+        }}
+      >
+        <Container>
+          <div
+            style={{
+              background: 'rgba( 	5 ,	56 ,	133, 0.3)', // Półprzezroczyste tło
+              backdropFilter: 'blur(10px)', // Efekt rozmycia
+              borderRadius: '15px', // Zaokrąglone rogi
+              padding: '20px',
+              
+              textAlign: 'center',
+            }}
+          >
+            <h1 className="display-4 mb-3 text-white fw-bold">Kontakt</h1>
+            <p className="lead text-white">
+              Jesteśmy tu, aby Ci pomóc. Skontaktuj się z nami w najwygodniejszy
+              dla Ciebie sposób.
+            </p>
+          </div>
+        </Container>
+      </div>
 
       <Container className="mb-5">
         <Row className="gy-4">

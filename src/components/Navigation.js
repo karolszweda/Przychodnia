@@ -90,10 +90,10 @@ function Navigation({ onFontSizeIncrease, onFontSizeReset, onToggleDarkMode, dar
             />
             <FontSizeButton 
               onFontSizeChange={onFontSizeReset} 
-              label="A" 
+              label="A-" 
               color="red"
             />
-            <DarkModeButton onToggleDarkMode={onToggleDarkMode} darkMode={darkMode} />
+            <DarkModeButton onToggleDarkMode={onToggleDarkMode} darkMode={darkMode}  />
           </div>
         </Navbar.Collapse>
       </Container>

@@ -10,18 +10,26 @@ function About() {
     backgroundImage: `url('https://images.pexels.com/photos/8460372/pexels-photo-8460372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`, // Ścieżka do Twojego zdjęcia
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    height: '550px'  // Zwiększona wysokość sekcji
+    height: '850px'  // Zwiększona wysokość sekcji
+    // height: '550px'  // Zwiększona wysokość sekcji
   }}>
-    <Container>
-      <h1 className="display-4 mb-3" style={{ color: '#333' }}>ePrzychodnia - Twoje Zdrowie, Nasza Misja</h1>  {/* Ciemny kolor nagłówka */}
-      <p className="lead" style={{ color: '#333' }}>Nowoczesna opieka medyczna dostosowana do potrzeb współczesnego pacjenta</p>  {/* Ciemny kolor tekstu */}
+    <Container
+      style={{
+        background: 'rgba( 	5, 	56 ,	133, 0.3)', // Półprzezroczyste tło
+        backdropFilter: 'blur(10px)', // Efekt rozmycia
+        borderRadius: '15px', // Zaokrąglone rogi
+        padding: '20px',
+        textAlign: 'center',
+      }}>
+      <h1 className="display-4 mb-3 fw-bold">ePrzychodnia - Twoje Zdrowie, Nasza Misja</h1>  {/* Ciemny kolor nagłówka */}
+      <p className="lead ">Nowoczesna opieka medyczna dostosowana do potrzeb współczesnego pacjenta</p>  {/* Ciemny kolor tekstu */}
     </Container>
   </div>
 
 
 
       {/* Main Content */}
-      <Container>
+      <Container >
         {/* O nas sekcja */}
         <section className="mb-5">
           <h2 className="mb-4">Kim jesteśmy?</h2>
