@@ -9,7 +9,6 @@ const AppointmentTable = ({ appointments, onCancelClick, type }) => (
         <th>Godzina</th>
         <th>{type === "vaccination" ? "Rodzaj szczepienia" : "Lekarz"}</th>
         <th>{type === "vaccination" ? "Typ" : "Specjalizacja"}</th>
-        <th>Status</th>
         <th>Akcje</th>
       </tr>
     </thead>
@@ -29,26 +28,13 @@ const AppointmentTable = ({ appointments, onCancelClick, type }) => (
               : appointment.specialization}
           </td>
           <td>
-            <span
-              className={`badge bg-${
-                appointment.status === "completed" ? "success" : "primary"
-              }`}
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => onCancelClick(appointment)}
             >
-              {appointment.status === "completed"
-                ? "Zakończona"
-                : "Zaplanowana"}
-            </span>
-          </td>
-          <td>
-            {appointment.status !== "completed" && (
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={() => onCancelClick(appointment)}
-              >
-                Odwołaj
-              </Button>
-            )}
+              Odwołaj
+            </Button>
           </td>
         </tr>
       ))}
